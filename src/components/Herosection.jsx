@@ -2,6 +2,7 @@ import React from 'react'
 
 
 const Herosection = () => {
+   
     return (
         <div className="w-full bg-[#F2F0F1]">
             <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
