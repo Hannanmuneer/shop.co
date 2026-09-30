@@ -1,15 +1,14 @@
-
 import Card from './Card'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Topsell = () => {
-
-const [productss, setProducts] = useState([]);
+  // 1. Saare Hooks ko sabse pehle (Top-Level) declare karein
+  const [productss, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [totalprod, settotaprod] = useState(4); // ✅ Top-level par shift kar diya
 
   useEffect(() => {
     const getProducts = async () => {
@@ -21,7 +20,7 @@ const [productss, setProducts] = useState([]);
         if (!res.ok) throw new Error(`Request failed (${res.status})`);
 
         const data = await res.json();
-        setProducts(data.products);
+        setProducts(data.products || []);
       } catch (err) {
         setError(err.message || "Kuch galat ho gaya");
       } finally {
@@ -32,15 +31,6 @@ const [productss, setProducts] = useState([]);
     getProducts();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-
-  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
-
-  if (productss.length === 0) return <p>Koi product nahi mila</p>;
-  
-
-  let [totalprod, settotaprod] = useState(4);
-
   const handleShowMore = () => {
     settotaprod((prev) => prev + 4);
   };
@@ -48,6 +38,14 @@ const [productss, setProducts] = useState([]);
   const handleShowLess = () => {
     settotaprod(4);
   };
+
+  // 2. Early Conditional Returns saare hooks ke BAAD hone chahiye
+  if (loading) return <p className="text-center py-10">Loading...</p>;
+
+  if (error) return <p className="text-center py-10 text-red-500">Error: {error}</p>;
+
+  if (productss.length === 0) return <p className="text-center py-10">Koi product nahi mila</p>;
+
   return (
     <div>
       <div className='w-full py-6 md:py-10 '>
@@ -62,8 +60,6 @@ const [productss, setProducts] = useState([]);
           </div>
         </div>
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
-
-
           <div className="flex justify-center items-center mt-10 mb-6">
             {totalprod < productss.length ? (
               <button
@@ -81,11 +77,10 @@ const [productss, setProducts] = useState([]);
               </button>
             )}
           </div>
-
         </div>
       </div>
     </div>
   )
 }
 
-export default Topsell
+export default Topsell;
