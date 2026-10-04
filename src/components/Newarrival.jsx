@@ -39,6 +39,12 @@ const Newarrival = () => {
     settotaprod(4);
   };
 
+  if (loading) return <p className="text-center py-10">Loading...</p>;
+
+  if (error) return <p className="text-center py-10 text-red-500">Error: {error}</p>;
+
+  if (productss.length === 0) return <p className="text-center py-10">Koi product nahi mila</p>;
+
   return (
     <div className='w-full py-6 md:py-10 border-b-[#F0EEED] border'>
       <div className='font-extrabold md:text-5xl text-4xl text-black text-center uppercase '>
