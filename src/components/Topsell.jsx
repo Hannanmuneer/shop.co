@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react'
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Topsell = () => {
-  // 1. Saare Hooks ko sabse pehle (Top-Level) declare karein
+  
   const [productss, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [totalprod, settotaprod] = useState(4); // ✅ Top-level par shift kar diya
+  const [totalprod, settotaprod] = useState(4); 
 
   useEffect(() => {
     const getProducts = async () => {
@@ -39,7 +39,7 @@ const Topsell = () => {
     settotaprod(4);
   };
 
-  // 2. Early Conditional Returns saare hooks ke BAAD hone chahiye
+  
   if (loading) return <p className="text-center py-10">Loading...</p>;
 
   if (error) return <p className="text-center py-10 text-red-500">Error: {error}</p>;
