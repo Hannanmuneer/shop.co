@@ -16,7 +16,7 @@ const Topsell = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(`${API_URL}/api/products`);
+        const res = await fetch(`${API_URL}/data/products`);
         if (!res.ok) throw new Error(`Request failed (${res.status})`);
 
         const data = await res.json();
