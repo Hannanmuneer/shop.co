@@ -20,7 +20,6 @@ const Topsell = () => {
         if (!res.ok) throw new Error(`Request failed (${res.status})`);
 
         const data = await res.json();
-        console.log(data);
         setProducts(data.productss || []);
       } catch (err) {
         setError(err.message || "Kuch galat ho gaya");

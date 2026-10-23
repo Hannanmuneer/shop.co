@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react'
 
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
+// const API_URL = 'http://localhost:5000';
 
 const Newarrival = () => {
   const [productss, setProducts] = useState([]);

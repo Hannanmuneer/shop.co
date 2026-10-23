@@ -16,6 +16,7 @@ const Cart = () => {
     const updateLocalStorage = (updatedCart) => {
         setCartItems(updatedCart);
         localStorage.setItem('cartproducts', JSON.stringify(updatedCart));
+         window.dispatchEvent(new Event('cartUpdated'));
     };
 
     const handleIncrease = (index) => {
@@ -184,10 +185,21 @@ const Cart = () => {
                                 Apply
                             </button>
                         </div>
+{/* 
+                       <button className="w-full bg-black text-white py-4 rounded-full font-medium hover:bg-gray-800 transition active:scale-95 flex items-center justify-center gap-2 mt-2 text-base">
+                       <Link to="/checkout" className="...same classes...">
+    Go to Checkout
+</Link> <FiArrowRight className="text-lg" />
+                        </button> */}
 
-                        <button className="w-full bg-black text-white py-4 rounded-full font-medium hover:bg-gray-800 transition active:scale-95 flex items-center justify-center gap-2 mt-2 text-base">
-                            Go to Checkout <FiArrowRight className="text-lg" />
-                        </button>
+                        <Link
+    to="/checkout"
+    className="w-full bg-black text-white py-4 rounded-full font-medium hover:bg-gray-800 transition active:scale-95 flex items-center justify-center gap-2 mt-2 text-base"
+>
+    <span>Go to Checkout</span>
+    <FiArrowRight className="text-lg" />
+</Link>
+
                     </div>
 
                 </div>

@@ -50,7 +50,6 @@ const ProductDetail = () => {
         setProduct(foundProduct || null);
 
       } catch (error) {
-        console.log(error);
         setProduct(null);
       } finally {
         setLoading(false);
@@ -70,44 +69,80 @@ const ProductDetail = () => {
     }
   };
 
+  // const handleAddToCart = () => {
+  //   if (!product) return;
+
+  //   setCart((prevCart) => {
+  //     const existingIndex = prevCart.findIndex(
+  //       (item) =>
+  //         item.id === product.id &&
+  //         item.selectedSize === selectedSize
+  //     );
+
+  //     let updatedCart;
+
+  //     if (existingIndex > -1) {
+  //       updatedCart = [...prevCart];
+
+  //       updatedCart[existingIndex] = {
+  //         ...updatedCart[existingIndex],
+  //         quantity:
+  //           updatedCart[existingIndex].quantity + quantity
+  //       };
+  //     } else {
+  //       const newItem = {
+  //         ...product,
+  //         selectedSize,
+  //         quantity
+  //       };
+
+  //       updatedCart = [...prevCart, newItem];
+  //     }
+
+  //     localStorage.setItem(
+  //       'cartproducts',
+  //       JSON.stringify(updatedCart)
+  //     );
+
+  //     window.dispatchEvent(new Event('cartUpdated'));
+
+  //     return updatedCart;
+  //   });
+  // };
   const handleAddToCart = () => {
-    if (!product) return;
+  if (!product) return;
 
-    setCart((prevCart) => {
-      const existingIndex = prevCart.findIndex(
-        (item) =>
-          item.id === product.id &&
-          item.selectedSize === selectedSize
-      );
+  const existingIndex = cart.findIndex(
+    (item) =>
+      item.id === product.id &&
+      item.selectedSize === selectedSize
+  );
 
-      let updatedCart;
+  let updatedCart;
 
-      if (existingIndex > -1) {
-        updatedCart = [...prevCart];
+  if (existingIndex > -1) {
+    updatedCart = [...cart];
 
-        updatedCart[existingIndex] = {
-          ...updatedCart[existingIndex],
-          quantity:
-            updatedCart[existingIndex].quantity + quantity
-        };
-      } else {
-        const newItem = {
-          ...product,
-          selectedSize,
-          quantity
-        };
-
-        updatedCart = [...prevCart, newItem];
+    updatedCart[existingIndex] = {
+      ...updatedCart[existingIndex],
+      quantity: updatedCart[existingIndex].quantity + quantity
+    };
+  } else {
+    updatedCart = [
+      ...cart,
+      {
+        ...product,
+        selectedSize,
+        quantity
       }
+    ];
+  }
 
-      localStorage.setItem(
-        'cartproducts',
-        JSON.stringify(updatedCart)
-      );
+  localStorage.setItem("cartproducts", JSON.stringify(updatedCart));
+  setCart(updatedCart);
 
-      return updatedCart;
-    });
-  };
+  window.dispatchEvent(new Event("cartUpdated"));
+};
 
   if (loading) {
     return (
@@ -207,11 +242,10 @@ const ProductDetail = () => {
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-                    selectedSize === size
-                      ? 'bg-black text-white'
-                      : 'bg-[#F0EEED] text-black/60 hover:bg-gray-200'
-                  }`}
+                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${selectedSize === size
+                    ? 'bg-black text-white'
+                    : 'bg-[#F0EEED] text-black/60 hover:bg-gray-200'
+                    }`}
                 >
                   {size}
                 </button>
