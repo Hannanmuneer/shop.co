@@ -17,7 +17,7 @@ const Newarrival = () => {
           setLoading(true);
           setError(null);
   
-          const res = await fetch(`${API_URL}/data/newproducts`);
+          const res = await fetch(`${API_URL}/api/newproducts`);
           if (!res.ok) throw new Error(`Request failed (${res.status})`);
   
           const data = await res.json();
