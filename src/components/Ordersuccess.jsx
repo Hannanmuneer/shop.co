@@ -18,7 +18,7 @@ const OrderSuccess = () => {
             return
         }
 
-        fetch(`${API_URL}/verify-payment/${orderId}`)
+        fetch(`${API_URL}/api/verify-payment/${orderId}`)
             .then((r) => (r.ok ? r.json() : Promise.reject()))
             .then((data) => {
                 // Backend se { success: true, order: { ... } } aata hai
